@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link id= layout rel="stylesheet" href="">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Multiplos layouts</h1>
+    <h3>Layout selecionado: <span id="num-layout"></span></h3>
+    <button onclick="mudar_layout()">Mudar layout</button>
+    <p id = p-01>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, dolore.</p>
+    <p id = p-02>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, dolore.</p>
+    <p id = p-03>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, dolore.</p>
+    <p id = p-04>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, dolore.</p>
+    <script>
+        let temas = ['01_layout.css', '02_layout.css','03_layout.css'];
+        let flag = 0;
+        const numLayout = document.getElementById("num-layout");
+        function mudar_layout(){
+            // Pega o caminho do link de estilização
+            let link_style = document.getElementById("layout");
+            // Altera o arquivo de estilização
+            link_style.href = temas[flag % 3];
+            flag++;
+            // Mostra qual o layout selecionado
+            numLayout.textContent = flag%3;
+
+        }
+    </script>
+</body>
+</html>
