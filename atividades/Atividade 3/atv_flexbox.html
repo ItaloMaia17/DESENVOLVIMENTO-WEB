@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Up Insights</title>
-    <link rel="stylesheet" href="atv_flexbox.css" id="style">
-    <link rel="shortcut icon" href="brain.png" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/atv_flexbox.css" id="style">
+    <link rel="shortcut icon" href="assets/images/brain.png" type="image/x-icon">
 </head>
 <body>
     <header>
 
-        <img id="logo"src="brain.png" alt="logo da página">
+        <img src="assets/images/brain.png" alt="logo da página" id="logo">
         <h1>Up <span id="titulo">Insights</span></h1>
-        <button id="change-theme"><img src="" alt=""></button>
+        <button id="change-theme"><img src="assets/images/theme.png" alt="" id="img-change-theme"></button>
     </header>
     <nav>
         <a href="#">Ideias</a>
@@ -34,15 +34,15 @@
                 <h4>Resultados</h4>
                 
                 <div class="resultados">
-                    <img src="podium.png" alt="podium" class="img-results">
+                    <img src="assets/images/podium.png" alt="podium" class="img-results">
                     <p>1500 Negócios Iniciados</p>
                 </div>
                 <div class="resultados">
-                    <img src="podium.png" alt="podium" class="img-results">
+                    <img src="assets/images/podium.png" alt="podium" class="img-results">
                     <p>5000 Consultorias realizadas</p>
                 </div>
                 <div class="resultados">
-                    <img src="podium.png" alt="podium" class="img-results">
+                    <img src="assets/images/podium.png" alt="podium" class="img-results">
                     <p>200 mil captados em investimento</p>
                 </div>
             </div>
@@ -65,5 +65,19 @@
     <footer>
         <p>&copy <strong>2025 Up Insights</strong> - Todos os direitos reservados</p>
     </footer>
+    <script>
+        const link_style = document.getElementById('style');
+        const btn_change = document.getElementById('change-theme');
+
+        btn_change.addEventListener('click', ()=> {
+            let tema_atual = link_style.getAttribute('href') 
+            if( tema_atual == 'assets/css/atv_flexbox.css'){
+                link_style.setAttribute('href', 'assets/css/atv_flexbox_dark.css');
+            }
+            else{
+                link_style.setAttribute('href', 'assets/css/atv_flexbox.css');
+            }
+        });
+    </script>
 </body>
 </html>

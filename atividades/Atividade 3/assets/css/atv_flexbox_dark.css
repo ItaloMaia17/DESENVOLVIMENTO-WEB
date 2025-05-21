@@ -4,24 +4,40 @@
 body{
     margin: 0;
     font-family:Arial, Helvetica, sans-serif;
-    color:#07445a;
+    color:#e5e8e9;
 }
 header{
     max-height: 100px;
     margin: 0;
     padding: 0;
-    background-color: #abebff;
+    background-color:#222121;
     padding: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-start;
     gap: 10px;
+}
+
+#change-theme{
+    margin-left: auto;
+    background-color:#abebff;
+    border: 1px solid #e0dcdc;
+    border-radius: 3px;
+    box-shadow:2px 2px #0a7399;
+}
+#change-theme :hover{
+    cursor:pointer;
+}
+
+#img-change-theme{
+    max-width: 2em;
 }
 #logo{
     height: 50px;
 }
 #titulo{
-    color: #2596be;
+    color: #abebff;
 }
 header h1{
     font-family:Arial, Helvetica, sans-serif;
@@ -30,7 +46,7 @@ header h1{
     font-size: 2rem;
 }
 nav{
-    background-color: #2596be;
+    background-color: #3d3c3c;
     display: flex;
     flex-direction:row;
     gap: 5px;
@@ -46,7 +62,7 @@ nav a{
 }
 a:hover{
     background-color: #f0f0f0;
-    color: #2596be;   
+    color: #2d3a3f;   
 }
 .image{
     background-color: #aaa;
@@ -60,30 +76,34 @@ a:hover{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #abebff;
+    background-color:#2596be;
     margin: 5px;
     padding: 3px;
+    color: #04394d;
 }
 .img-results{
     height: 40px;
 }
 main{
-    margin: 5px;
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
+    background-color: #25292b;
 }
 aside{
-    flex: 3;
+    flex: 2;
+    padding: 5px;
+    margin: 0;
 }
 .content{
-    background-color:#f5f3f3;
+    margin: 5px;
+    background-color:#4b4a4a;
     border-radius: 5px;
     padding-left: 15px;
-    margin: 5px;
     display: flex;
     flex-direction: column;
-    flex: 7;
+    flex: 8;
+    box-shadow: rgba(0, 0, 0, 0.5);
 }
 #nubank{
     max-width: 100%;
@@ -98,7 +118,7 @@ aside{
     border-radius: 5px;
 }
 footer{
-    background-color: #ddd;
+    background-color: #2596be;
     text-align: center;
     padding: 20px;
     font-family: sans-serif;
@@ -110,9 +130,5 @@ footer{
     }
     aside{
         display: none
-    }
-    header{
-        align-items: center;
-        justify-content: center;
     }
 }

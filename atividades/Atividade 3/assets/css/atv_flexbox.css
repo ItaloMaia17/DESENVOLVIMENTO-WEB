@@ -15,7 +15,22 @@ header{
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-start;
     gap: 10px;
+}
+#change-theme{
+    margin-left: auto;
+    border: 1px none;
+    background-color:#f0f0f0;
+    border-radius: 3px;
+    box-shadow:2px 2px #2596be;
+}
+#change-theme :hover{
+    cursor:pointer;
+}
+
+#img-change-theme{
+    max-width: 2em;
 }
 #logo{
     height: 50px;
@@ -26,7 +41,7 @@ header{
 header h1{
     font-family:Arial, Helvetica, sans-serif;
     text-align: center;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     font-size: 2rem;
 }
 nav{
@@ -68,13 +83,14 @@ a:hover{
     height: 40px;
 }
 main{
-    margin: 5px;
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
 }
 aside{
-    flex: 3;
+    flex: 2;
+    padding: 5px;
+    margin: 0;
 }
 .content{
     background-color:#f5f3f3;
@@ -83,7 +99,8 @@ aside{
     margin: 5px;
     display: flex;
     flex-direction: column;
-    flex: 7;
+    flex: 8;
+    box-shadow: rgba(0, 0, 0, 0.5);
 }
 #nubank{
     max-width: 100%;
@@ -104,15 +121,11 @@ footer{
     font-family: sans-serif;
 }
 /* Responsividade */
-@media (max-width: 768px) {
+@media (max-width: 500px) {
     nav{
         flex-direction: column;
     }
     aside{
         display: none
-    }
-    header{
-        align-items: center;
-        justify-content: center;
     }
 }
