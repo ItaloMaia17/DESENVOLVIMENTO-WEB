@@ -18,7 +18,7 @@ class AlunoService {
     static atualizar(id, {nome, curso, ira}) {
         const index = alunos.findIndex(a => a.id === id);
         if (index !== -1) {
-            alunos[index] = {id, nome, curso, ira};
+            alunos[index] = new Aluno(id, nome, curso, parseFloat(ira)); // Corrigido para manter instância da classe
             return alunos[index];
         }
         return null;
@@ -28,7 +28,7 @@ class AlunoService {
         const index = alunos.findIndex(a => a.id === id);
         if (index !== -1) {
             const alunoRemovido = alunos.splice(index, 1);
-            return alunoRemovido;
+            return alunoRemovido[0]; // Retorna apenas o objeto removido
         }
         return null;
     }

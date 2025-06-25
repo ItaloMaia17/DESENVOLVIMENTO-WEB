@@ -7,24 +7,79 @@
 </head>
 <body>
     <div id="table-container">
-
+        <table border="1" width="100%">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Curso</th>
+                    <th>IRA</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                </tr>
+            </thead>
+            <tbody id="alunos-tbody">
+            </tbody>
+        </table>
+        <div id="media"></div>
     </div>
     <script>
-        async function acessarAlunos() {
-            let response = await fetch("http://localhost:3000/alunos/listar");
-            let json = await response.json();
-        }
-        const table = document.createElement("table")
-        alunos.forEach(
-            (aluno) => {
-            const linha = table.insertRow()
-            const cellNome = linha.insertCell()
-            cellNome.textContent = aluno.cellNome
+    async function carregarAlunos() {
+        try {
+            const response = await fetch('http://localhost:3000/alunos/listar');
+            const alunos = await response.json();
 
-            const divTable = document.getElementById("table-container")
-            divTable.appendChild(table)
-        });
-        acessarAlunos()
+            const tbody = document.getElementById("alunos-tbody");
+            tbody.innerHTML = "";
+
+            let somaIRA = 0;
+
+            alunos.forEach(aluno => {
+                somaIRA += parseFloat(aluno.ira);
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${aluno.nome}</td>
+                    <td>${aluno.curso}</td>
+                    <td>${aluno.ira}</td>
+                    <td><a href="editarAluno.html?id=${encodeURIComponent(aluno.id)}">Editar</a></td>
+                    <td><button onclick="excluirAluno(${aluno.id})">Excluir</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            let mediaIRA = "0.00";
+
+            if (alunos.length > 0) {
+                mediaIRA = (somaIRA / alunos.length).toFixed(2);
+            }
+
+            document.getElementById('media').textContent = `Média do IRA: ${mediaIRA}`;
+        } catch (erro) {
+            console.error("Erro ao carregar alunos:", erro);
+        }
+    }
+
+    async function excluirAluno(id) {
+        try {
+            const resposta = await fetch(`http://localhost:3000/alunos/remover/${id}`, {
+                method: 'DELETE'
+            });
+
+            const dados = await resposta.json();
+
+            if (resposta.ok) {
+                alert("Aluno excluído com sucesso!");
+                carregarAlunos();
+            } else {
+                alert(dados.erro || "Erro ao excluir aluno");
+            }
+        } catch (erro) {
+            console.error("Erro ao excluir aluno:", erro);
+            alert("Erro na comunicação com o servidor.");
+        }
+    }
+
+    carregarAlunos();
     </script>
 </body>
 </html>
