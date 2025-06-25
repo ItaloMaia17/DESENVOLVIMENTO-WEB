@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="table-container">
+
+    </div>
+    <script>
+        async function acessarAlunos() {
+            let response = await fetch("http://localhost:3000/alunos/listar");
+            let json = await response.json();
+        }
+        const table = document.createElement("table")
+        alunos.forEach(
+            (aluno) => {
+            const linha = table.insertRow()
+            const cellNome = linha.insertCell()
+            cellNome.textContent = aluno.cellNome
+
+            const divTable = document.getElementById("table-container")
+            divTable.appendChild(table)
+        });
+        acessarAlunos()
+    </script>
+</body>
+</html>

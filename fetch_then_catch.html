@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+</head>
+<body>
+    <h1>Fetch com then-catch</h1>
+    <h2 id="pokemon">Carregando...</h2>
+    <img id="pokemon-img" src="" alt="">
+    <img id="pokemon-img-hd" src="" alt="">
+<script>
+    function carregar_pokemon(id) {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+        .then(
+            (response) => {
+                //console.log(response.json())
+                return response.json()
+            }
+        )
+        .then(
+            (json) => {
+                //console.log(json)
+                const PokemonName = document.getElementById("pokemon")
+                let PokemonNameStr = json.name
+                PokemonNameStr = PokemonNameStr.charAt(0).toUpperCase() + PokemonNameStr.slice(1)
+
+                PokemonName.innerHTML = PokemonNameStr
+                // imagem padrão do pokemon
+                const PokemonImg = document.getElementById("pokemon-img")
+                PokemonImg.alt = PokemonNameStr;
+                PokemonImg.src = json.sprites.front_default;
+                // imagem em hd do pokemon
+                const PokemonImgHD = document.getElementById("pokemon-img-hd");
+                PokemonImgHD.alt = PokemonNameStr;
+                PokemonImgHD.src = json.sprites.other.dream_world.front_default;
+
+            }
+        )
+        .catch(
+            (error) => {
+                console.log(error)
+            }
+        )
+    }
+
+    carregar_pokemon(25)
+</script>
+
+</body>
+</html>
