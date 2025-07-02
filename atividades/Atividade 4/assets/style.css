@@ -1,0 +1,41 @@
+h1{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #legenda{
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: row;
+            gap: 10px;
+            margin: 10px;
+        }
+        #legenda p{
+            padding: 5px;
+        }
+        #tabela-covid {
+        width: 100%;
+        border-collapse: collapse;
+        font-family:Arial, Helvetica, sans-serif;
+        }
+
+        th, td {
+        border: 2px solid #c0bebe;
+        padding: 8px;
+        text-align: center;
+        }
+
+        th {
+        background-color: #eee;
+        }
+
+        .acima-media {
+        background-color: #fc8e8e;
+        }
+
+        .maior-relacao {
+        background-color: #86ff7d;
+        }
+
+        .menor-relacao {
+        background-color: #ffef92;
+        }

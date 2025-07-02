@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela Covid-19 por Países</title>
+    <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+    <h1>Relatório de covid-19 por Países</h1>
+    <div id="legenda">
+        <div class="acima-media">
+            <p>Mortes Acima da Média</p>
+        </div>
+        <div class="maior-relacao">
+            <p>Maior relação entre casos/falecimentos</p>
+        </div>
+        <div class="menor-relacao">
+            <p>Menor relação entre casos/falecimentos</p>
+        </div>
+    </div>
+    <table id="tabela-covid">
+        <thead>
+            <tr>
+                <th>País</th>
+                <th>Casos confirmados</th>
+                <th>Falecimentos</th>
+                <th>Relação Casos/Falecimentos</th>
+            </tr>
+        </thead>
+        <tbody id="corpo-tabela">
+        </tbody>
+        <tfoot id="final-tabela">
+        </tfoot>
+    </table>
+    <script>
+        async function carregarDados(){
+            const response = await fetch('https://covid19-brazil-api.now.sh/api/report/v1/countries');
+            const dados = await response.json();
+            const paises = dados.data;
+
+            const tbody = document.getElementById("corpo-tabela")
+            const tfoot = document.getElementById("final-tabela")
+            
+            // Variaveis para os calculos
+            let totalCasos = 0;
+            let totalMortes = 0;
+            let totalRelacao = 0;
+            let maiorRelacao = -Infinity;
+            let menorRelacao = Infinity;
+            let trMaiorRelacao = null;
+            let trMenorRelacao = null;
+            const linhas = [];
+
+            // Preenchendo a tabela dinâmicamente
+            paises.forEach(pais => {
+                let nomePais = pais.country;
+                let numCasos = pais.confirmed;
+                let numMortes = pais.deaths;
+
+                // Atualizando os totais
+                totalCasos += numCasos;
+                totalMortes += numMortes;
+
+                //Inserindo a linha nova na tabela
+                const tr = document.createElement("tr");
+
+                const tdPais = document.createElement("td");
+                tdPais.textContent = nomePais;
+                tr.appendChild(tdPais)
+
+                const tdCasos = document.createElement("td");
+                tdCasos.textContent = numCasos;
+                tr.appendChild(tdCasos)
+
+                const tdMortes = document.createElement("td");
+                tdMortes.textContent = numMortes;
+                tr.appendChild(tdMortes)
+
+                // Calculo de relações
+                let relacao = numMortes > 0 ? (numCasos/numMortes): 0;
+                // Média de relações
+                totalRelacao += relacao;
+
+                if (relacao > maiorRelacao){
+                    maiorRelacao = relacao;
+                    trMaiorRelacao = tr;
+                }
+                if(relacao < menorRelacao){
+                    menorRelacao = relacao;
+                    trMenorRelacao = tr;
+                }
+
+                // inserir a relação na tabela
+                const tdRelacao = document.createElement("td")
+                tdRelacao.textContent = relacao.toFixed(2);
+                tr.appendChild(tdRelacao);
+
+                linhas.push({ tdMortes, mortes: numMortes })
+
+                tbody.appendChild(tr); 
+            });
+            // Preencher o footer da tabela
+            const trMedia = document.createElement("tr");
+
+            const tdDiv = document.createElement("td");
+            tdDiv.textContent = "Média";
+
+            const tdMediaCasos = document.createElement("td");
+            tdMediaCasos.textContent = (totalCasos / paises.length).toFixed(2);
+
+            const tdMediaMortes = document.createElement("td");
+            tdMediaMortes.textContent = (totalMortes / paises.length).toFixed(2);
+
+            const tdMediaRelacao = document.createElement("td");
+            tdMediaRelacao.textContent = (totalRelacao / paises.length).toFixed(2);
+
+            trMedia.appendChild(tdDiv);
+            trMedia.appendChild(tdMediaCasos);
+            trMedia.appendChild(tdMediaMortes);
+            trMedia.appendChild(tdMediaRelacao);
+
+            // Adiciona a linha ao footer
+            tfoot.appendChild(trMedia);
+
+            // Destacar as relações
+            if(trMaiorRelacao){
+                trMaiorRelacao.classList.add("maior-relacao")
+            }
+            if(trMenorRelacao){
+                trMenorRelacao.classList.add("menor-relacao")
+            }
+
+            // Destaca países com mortes acima da média
+            const mediaMortes = totalMortes / paises.length;
+
+            linhas.forEach(({tdMortes, mortes}) => {
+                if(mortes > mediaMortes){
+                    tdMortes.classList.add("acima-media");
+                }
+            });
+        }
+
+        carregarDados();
+    </script>
+</body>
